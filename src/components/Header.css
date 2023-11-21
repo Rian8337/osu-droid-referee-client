@@ -1,0 +1,7 @@
+.header-container {
+    max-width: min(800px, 100%);
+    background-color: rgba(23, 69, 149, 0.9);
+    text-align: center;
+    margin: 0 auto;
+    font: 1.5em Exo-Bold;
+}

@@ -1,0 +1,34 @@
+.chat-box-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.chat-box-container {
+    background-color: rgba(47, 47, 47, 0.9);
+    margin-top: 0.5em;
+    max-height: 50vmin;
+    overflow-y: scroll;
+    font-size: 0.9em;
+    scroll-behavior: smooth;
+}
+
+.chat-input-container {
+    margin-top: 0.5em;
+}
+
+.chat-input-field {
+    background-color: rgba(47, 47, 47, 0.95);
+    color: white;
+    font-family: Exo-Medium;
+    width: 85%;
+    max-height: 20vmin;
+    overflow-y: scroll;
+}
+
+.chat-input-send {
+    margin-left: 0.5em;
+    color: white;
+    font-family: Exo-Medium;
+    background-color: rgba(54, 54, 54, 0.9);
+}

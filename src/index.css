@@ -1,0 +1,26 @@
+@font-face {
+    font-family: Exo-Bold;
+    src: url(./assets/Exo-Bold.ttf);
+}
+
+@font-face {
+    font-family: Exo-Medium;
+    src: url(./assets/Exo-Medium.ttf);
+}
+
+@font-face {
+    font-family: Exo-SemiBold;
+    src: url(./assets/Exo-SemiBold.ttf);
+}
+
+body {
+    background-color: #222;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("./assets/background.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    font: 1em Exo-Medium;
+    color: white;
+    max-width: min(800px, 100%);
+    margin: 0 auto;
+}

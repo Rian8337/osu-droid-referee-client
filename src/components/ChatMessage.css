@@ -1,0 +1,13 @@
+.chat-message {
+    margin: 0.25em;
+    padding: 0;
+}
+
+.system-chat-message {
+    color: #77a0e0;
+}
+
+.chat-message-username {
+    font-weight: bold;
+    color: #f299b7;
+}
