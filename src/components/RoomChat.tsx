@@ -3,15 +3,10 @@ import "./RoomChat.css";
 import ChatMessage from "./ChatMessage";
 import { SocketContext } from "../hooks/SocketContext";
 import { MessagesContext } from "../hooks/MessagesContext";
-import { RoomIdContext } from "../hooks/RoomIdContext";
-import { RoomNameContext } from "../hooks/credentials/RoomNameContext";
 
 export default function RoomChat() {
     const messages = useContext(MessagesContext);
     const socket = useContext(SocketContext);
-
-    const roomName = useContext(RoomNameContext);
-    const roomId = useContext(RoomIdContext);
 
     const chatBoxContainerId = "chat-box-container";
 
@@ -64,11 +59,7 @@ export default function RoomChat() {
 
     return (
         <>
-            <div className="chat-box-title">
-                {roomName.value} (ID: {roomId.value})
-                <br />
-                Chat
-            </div>
+            <div className="chat-box-title">Chat</div>
 
             <form
                 id="chat-message-form"

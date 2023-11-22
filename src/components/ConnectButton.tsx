@@ -15,6 +15,11 @@ import { RoomAuthenticationData } from "../structures/auth/RoomAuthenticationDat
 import { MessagesContext } from "../hooks/MessagesContext";
 import { RoomIdContext } from "../hooks/RoomIdContext";
 import { Socket } from "../structures/Socket";
+import { RoomModsContext } from "../hooks/RoomModsContext";
+import { PickedBeatmapContext } from "../hooks/PickedBeatmapContext";
+import { FreeModSettingContext } from "../hooks/FreeModSettingContext";
+import { WinConditionContext } from "../hooks/WinConditionContext";
+import { TeamModeContext } from "../hooks/TeamModeContext";
 
 function escapeHTMLSpecialCharacters(str: string): string {
     return str
@@ -69,6 +74,12 @@ export default function ConnectButton() {
     const connectionState = useContext(ConnectionStateContext);
     const messages = useContext(MessagesContext);
     const socket = useContext(SocketContext);
+
+    const pickedBeatmap = useContext(PickedBeatmapContext);
+    const roomMods = useContext(RoomModsContext);
+    const freeModSetting = useContext(FreeModSettingContext);
+    const winCondition = useContext(WinConditionContext);
+    const teamMode = useContext(TeamModeContext);
 
     function onClick() {
         if (socket.value?.connected) {
@@ -175,6 +186,39 @@ export default function ConnectButton() {
                                         message: message,
                                     });
                                 })
+                                .on("error", (message) => {
+                                    alert(
+                                        `An error message received from the server:\n\n${message}`
+                                    );
+                                })
+                                .on(
+                                    "beatmapChanged",
+                                    pickedBeatmap.setValue.bind(pickedBeatmap)
+                                )
+                                .on(
+                                    "roomModsChanged",
+                                    roomMods.setValue.bind(roomMods)
+                                )
+                                .on(
+                                    "freeModsSettingChanged",
+                                    freeModSetting.setValue.bind(freeModSetting)
+                                )
+                                .on(
+                                    "winConditionChanged",
+                                    winCondition.setValue.bind(winCondition)
+                                )
+                                .on(
+                                    "teamModeChanged",
+                                    teamMode.setValue.bind(teamMode)
+                                )
+                                .on(
+                                    "roomNameChanged",
+                                    roomName.setValue.bind(roomName)
+                                )
+                                .on(
+                                    "maxPlayersChanged",
+                                    maxPlayers.setValue.bind(maxPlayers)
+                                )
                         );
                     })
                     .catch(onError);

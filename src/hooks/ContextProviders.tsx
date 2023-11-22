@@ -8,6 +8,11 @@ import { ConnectionStateContextProvider } from "./ConnectionStateContext";
 import { SocketContextProvider } from "./SocketContext";
 import { MessagesContextProvider } from "./MessagesContext";
 import { RoomIdContextProvider } from "./RoomIdContext";
+import { PickedBeatmapContextProvider } from "./PickedBeatmapContext";
+import { RoomModsContextProvider } from "./RoomModsContext";
+import { FreeModSettingContextProvider } from "./FreeModSettingContext";
+import { WinConditionContextProvider } from "./WinConditionContext";
+import { TeamModeContextProvider } from "./TeamModeContext";
 
 const compose =
     (...components: FC<Record<string, unknown>>[]) =>
@@ -26,5 +31,10 @@ export const Providers = compose(
     ConnectionStateContextProvider,
     MessagesContextProvider,
     SocketContextProvider,
-    RoomIdContextProvider
+    RoomIdContextProvider,
+    PickedBeatmapContextProvider,
+    RoomModsContextProvider,
+    FreeModSettingContextProvider,
+    WinConditionContextProvider,
+    TeamModeContextProvider
 );

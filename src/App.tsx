@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import RoomChat from "./components/RoomChat";
 import { ConnectionStateContext } from "./hooks/ConnectionStateContext";
 import { ConnectionState } from "./constants/ConnectionState";
+import RoomInformation from "./components/RoomInformation";
 
 export default function App() {
     const connectionState = useContext(ConnectionStateContext);
@@ -28,6 +29,8 @@ export default function App() {
 
             {connectionState.value === ConnectionState.connected ? (
                 <>
+                    <br />
+                    <RoomInformation />
                     <br />
                     <RoomChat />
                 </>
