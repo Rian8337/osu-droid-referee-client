@@ -20,6 +20,7 @@ import { PickedBeatmapContext } from "../hooks/PickedBeatmapContext";
 import { FreeModSettingContext } from "../hooks/FreeModSettingContext";
 import { WinConditionContext } from "../hooks/WinConditionContext";
 import { TeamModeContext } from "../hooks/TeamModeContext";
+import { RemoveSliderLockContext } from "../hooks/RemoveSliderLockContext";
 
 function escapeHTMLSpecialCharacters(str: string): string {
     return str
@@ -80,6 +81,7 @@ export default function ConnectButton() {
     const freeModSetting = useContext(FreeModSettingContext);
     const winCondition = useContext(WinConditionContext);
     const teamMode = useContext(TeamModeContext);
+    const removeSliderLock = useContext(RemoveSliderLockContext);
 
     function onClick() {
         if (socket.value?.connected) {
@@ -218,6 +220,12 @@ export default function ConnectButton() {
                                 .on(
                                     "maxPlayersChanged",
                                     maxPlayers.setValue.bind(maxPlayers)
+                                )
+                                .on(
+                                    "removeSliderLockChanged",
+                                    removeSliderLock.setValue.bind(
+                                        removeSliderLock
+                                    )
                                 )
                         );
                     })

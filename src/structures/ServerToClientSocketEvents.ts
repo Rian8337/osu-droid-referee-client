@@ -65,6 +65,13 @@ export interface ServerToClientSocketEvents {
     maxPlayersChanged: (maxPlayers: number) => void;
 
     /**
+     * Emitted when the remove slider lock setting of a room was changed.
+     *
+     * @param isEnabled Whether the setting is enabled.
+     */
+    removeSliderLockChanged: (isEnabled: boolean) => void;
+
+    /**
      * Emitted when a error happens.
      *
      * @param message The error message.
