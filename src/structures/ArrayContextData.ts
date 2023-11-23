@@ -13,4 +13,11 @@ export interface ArrayContextData<T> {
      * @param value The value to add.
      */
     addValue(value: T): void;
+
+    /**
+     * Removes a value from the array.
+     *
+     * @param predicate A predicate that indicates whether the object should be removed.
+     */
+    removeValue(predicate: (value: T) => boolean): void;
 }

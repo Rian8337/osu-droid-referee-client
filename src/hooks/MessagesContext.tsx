@@ -5,6 +5,7 @@ import { IChatMessage } from "../structures/IChatMessage";
 export const MessagesContext = createContext<ArrayContextData<IChatMessage>>({
     values: [],
     addValue: () => {},
+    removeValue: () => {},
 });
 
 export function MessagesContextProvider(props: PropsWithChildren) {
@@ -16,6 +17,18 @@ export function MessagesContextProvider(props: PropsWithChildren) {
                 values: values,
                 addValue: (value) => {
                     setValues((prev) => [...prev.slice(0, 49), value]);
+                },
+                removeValue: (predicate) => {
+                    const index = values.findIndex(predicate);
+                    if (index === -1) {
+                        return;
+                    }
+
+                    setValues((prev) => {
+                        prev.splice(index, 1);
+
+                        return prev;
+                    });
                 },
             }}
         >
