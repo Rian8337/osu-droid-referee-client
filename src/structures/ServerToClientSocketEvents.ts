@@ -1,5 +1,8 @@
+import { MultiplayerPlayerStatus } from "../constants/MultiplayerPlayerStatus";
+import { MultiplayerTeam } from "../constants/MultiplayerTeam";
 import { MultiplayerTeamMode } from "../constants/MultiplayerTeamMode";
 import { MultiplayerWinCondition } from "../constants/MultiplayerWinCondition";
+import { MultiplayerPlayer } from "./MultiplayerPlayer";
 import { MultiplayerRoomMods } from "./MultiplayerRoomMods";
 import { PickedBeatmap } from "./PickedBeatmap";
 
@@ -70,6 +73,44 @@ export interface ServerToClientSocketEvents {
      * @param isEnabled Whether the setting is enabled.
      */
     removeSliderLockChanged: (isEnabled: boolean) => void;
+
+    /**
+     * Emitted when a player joins the room.
+     *
+     * @param player The player who joined the room.
+     */
+    playerJoined: (player: MultiplayerPlayer) => void;
+
+    /**
+     * Emitted when the player leaves a multiplayer room.
+     *
+     * @param uid The uid of the player.
+     */
+    playerLeft: (uid: string) => void;
+
+    /**
+     * Emitted when a player changes their status.
+     *
+     * @param uid The uid of the player.
+     * @param status The new status.
+     */
+    playerStatusChanged: (uid: string, status: MultiplayerPlayerStatus) => void;
+
+    /**
+     * Emitted when a player changes their team.
+     *
+     * @param uid The uid of the player.
+     * @param team The new team of the player, `null` if the player does not belong in any team.
+     */
+    teamChanged: (uid: string, team: MultiplayerTeam | null) => void;
+
+    /**
+     * Emitted when a player changes their mods in a free mod setting.
+     *
+     * @param uid The uid of the player.
+     * @param mods The new mods.
+     */
+    playerModsChanged: (uid: string, mods: MultiplayerRoomMods) => void;
 
     /**
      * Emitted when a error happens.

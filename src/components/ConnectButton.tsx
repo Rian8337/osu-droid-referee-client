@@ -21,6 +21,7 @@ import { FreeModSettingContext } from "../hooks/FreeModSettingContext";
 import { WinConditionContext } from "../hooks/WinConditionContext";
 import { TeamModeContext } from "../hooks/TeamModeContext";
 import { RemoveSliderLockContext } from "../hooks/RemoveSliderLockContext";
+import { PlayersContext } from "../hooks/PlayersContext";
 
 function escapeHTMLSpecialCharacters(str: string): string {
     return str
@@ -82,6 +83,8 @@ export default function ConnectButton() {
     const winCondition = useContext(WinConditionContext);
     const teamMode = useContext(TeamModeContext);
     const removeSliderLock = useContext(RemoveSliderLockContext);
+
+    const players = useContext(PlayersContext);
 
     function onClick() {
         if (socket.value?.connected) {
@@ -227,6 +230,40 @@ export default function ConnectButton() {
                                         removeSliderLock
                                     )
                                 )
+                                .on(
+                                    "playerJoined",
+                                    players.addValue.bind(players)
+                                )
+                                .on("playerLeft", (uid) => {
+                                    players.removeValue((v) => v.uid === uid);
+                                })
+                                .on("playerStatusChanged", (uid, status) => {
+                                    const player = players.values.find(
+                                        (v) => v.uid === uid
+                                    );
+
+                                    if (player) {
+                                        player.status = status;
+                                    }
+                                })
+                                .on("teamChanged", (uid, team) => {
+                                    const player = players.values.find(
+                                        (v) => v.uid === uid
+                                    );
+
+                                    if (player) {
+                                        player.team = team;
+                                    }
+                                })
+                                .on("playerModsChanged", (uid, mods) => {
+                                    const player = players.values.find(
+                                        (v) => v.uid === uid
+                                    );
+
+                                    if (player) {
+                                        player.mods = mods;
+                                    }
+                                })
                         );
                     })
                     .catch(onError);

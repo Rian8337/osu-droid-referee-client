@@ -14,6 +14,7 @@ import { FreeModSettingContextProvider } from "./FreeModSettingContext";
 import { WinConditionContextProvider } from "./WinConditionContext";
 import { TeamModeContextProvider } from "./TeamModeContext";
 import { RemoveSliderLockContextProvider } from "./RemoveSliderLockContext";
+import { PlayersContextProvider } from "./PlayersContext";
 
 const compose =
     (...components: FC<Record<string, unknown>>[]) =>
@@ -38,5 +39,6 @@ export const Providers = compose(
     FreeModSettingContextProvider,
     WinConditionContextProvider,
     TeamModeContextProvider,
-    RemoveSliderLockContextProvider
+    RemoveSliderLockContextProvider,
+    PlayersContextProvider
 );
