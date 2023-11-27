@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { UsernameContext } from "../hooks/credentials/UsernameContext";
 import { UserPasswordContext } from "../hooks/credentials/UserPasswordContext";
 import { RoomNameContext } from "../hooks/credentials/RoomNameContext";
@@ -65,6 +65,8 @@ function getButtonLabel(connectionState: ConnectionState): string {
 }
 
 export default function ConnectButton() {
+    const disconnectTimeout = useRef<number>();
+
     const username = useContext(UsernameContext);
     const password = useContext(UserPasswordContext);
 
@@ -170,19 +172,45 @@ export default function ConnectButton() {
                                 .on("connect", () => {
                                     console.log("Socket connected to server");
 
+                                    if (
+                                        disconnectTimeout.current !== undefined
+                                    ) {
+                                        clearTimeout(disconnectTimeout.current);
+                                        disconnectTimeout.current = undefined;
+                                    }
+
                                     connectionState.setValue(
                                         ConnectionState.connected
                                     );
                                 })
                                 .on("disconnect", (reason) => {
-                                    console.log(
-                                        "Disconnected from the server:",
-                                        reason
-                                    );
+                                    switch (reason) {
+                                        case "io server disconnect":
+                                        case "io client disconnect":
+                                            console.log(
+                                                "Disconnected from the server"
+                                            );
 
-                                    connectionState.setValue(
-                                        ConnectionState.disconnected
-                                    );
+                                            connectionState.setValue(
+                                                ConnectionState.disconnected
+                                            );
+                                            break;
+                                        default:
+                                            console.log(
+                                                "Disconnected from the server, attempting to reconnect"
+                                            );
+
+                                            disconnectTimeout.current =
+                                                setTimeout(() => {
+                                                    console.log(
+                                                        "Disconnected from the server after attempting to reconnect"
+                                                    );
+
+                                                    connectionState.setValue(
+                                                        ConnectionState.disconnected
+                                                    );
+                                                }, 35000);
+                                    }
                                 })
                                 .on("connect_error", onError)
                                 .on("chatMessage", (username, message) => {
